@@ -1,6 +1,8 @@
-import { StableBTreeMap, text } from "azle";
-import { Doctor } from "./Entities";
+import { Principal, StableBTreeMap, text } from "azle";
+import { doctorType, patientType, treatmentType } from "./types";
 
-const DoctorStorage = StableBTreeMap(0, text, Doctor);
+const DoctorStorage = StableBTreeMap<Principal, doctorType>(0);
+const PatientStorage = StableBTreeMap<Principal, patientType>(1);
+const TreatmentStorage = StableBTreeMap<Principal, treatmentType>(2);
 
-export { DoctorStorage };
+export { DoctorStorage, PatientStorage, TreatmentStorage };

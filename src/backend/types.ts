@@ -1,5 +1,9 @@
-import { Doctor } from "./Entities";
+import { CustomError, Doctor, Patient, Treatment } from "./Entities";
 
-type DoctorType = typeof Doctor;
+type doctorType = typeof Doctor.tsType;
+type patientType = typeof Patient.tsType;
+type treatmentType = typeof Treatment.tsType;
+type customErrorType = typeof CustomError.tsType;
 
-export { DoctorType };
+
+export { doctorType, patientType, treatmentType, customErrorType };

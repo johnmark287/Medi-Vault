@@ -1,0 +1,5 @@
+prisma-like relations
+multiple canisters
+intercanister communication
+
+principal?
