@@ -23,7 +23,7 @@ export default Canister({
         DoctorStorage.insert(doctor.id, doctor);
         return doctor.id;
     }),
-    updateDoctor: update([text, DoctorPayload], Result(text, CustomError), (id, payload) => {
+    updateDoctor: update([text, DoctorPayload], Result(Doctor, CustomError), (id, payload) => {
         try {
             const doctor = {
                 ...DoctorStorage.get(id).Some,
