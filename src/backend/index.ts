@@ -1,4 +1,4 @@
-import { Canister, Err, ic, None, Ok, query, Record, Result, Some, StableBTreeMap, text, update, Variant, Vec, Void } from 'azle';
+import { Canister, Err, ic, None, Ok, query, Result, Some, text, update, Vec } from 'azle';
 import { v4 as uuidv4 } from "uuid";
 import { Doctor, CustomError } from './Entities';
 import { DoctorStorage } from './Storage';
