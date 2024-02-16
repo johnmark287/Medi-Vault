@@ -23,13 +23,18 @@ export default Canister({
         DoctorStorage.insert(doctor.id, doctor);
         return doctor.id;
     }),
-    updateDoctor: update([text, DoctorPayload], text, (id, payload) => {
-        const doctor = DoctorStorage.get(id).Some;
-        const { name } = payload;
-        doctor.name = name;
-        doctor.updatedAt = Some(ic.time());
-        DoctorStorage.insert(id, doctor);
-        return id;
+    updateDoctor: update([text, DoctorPayload], Result(text, CustomError), (id, payload) => {
+        try {
+            const doctor = {
+                ...DoctorStorage.get(id).Some,
+                ...payload,
+                updatedAt: Some(ic.time())
+            };
+            DoctorStorage.insert(id, doctor);
+            return doctor;
+        } catch (e: any) {
+            return Err({ NotFound: "Doctor not found!" });
+        }
     }),
     getDoctors: query([], Result(Vec(Doctor), CustomError), () => {
         try {
