@@ -24,17 +24,17 @@ export default Canister({
         return doctor.id;
     }),
     updateDoctor: update([text, DoctorPayload], Result(Doctor, CustomError), (id, payload) => {
-        try {
-            const doctor = {
-                ...DoctorStorage.get(id).Some,
-                ...payload,
-                updatedAt: Some(ic.time())
-            };
-            DoctorStorage.insert(id, doctor);
-            return doctor;
-        } catch (e: any) {
-            return Err({ NotFound: "Doctor not found!" });
+        const doctorOpt = DoctorStorage.get(id);
+        if ("None" in doctorOpt) {
+            return Err({ NotFound: `Cannot update the doctor: Doctor with id=${id} not found` });
         }
+        const updatedDoctor = {
+            ...doctorOpt.Some,
+            ...payload,
+            updatedAt: Some(ic.time())
+        }
+        DoctorStorage.insert(doctorOpt.Some.id, updatedDoctor);
+        return Ok(updatedDoctor);
     }),
     getDoctors: query([], Result(Vec(Doctor), CustomError), () => {
         try {
